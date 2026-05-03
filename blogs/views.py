@@ -12,3 +12,7 @@ def post_by_category(request, category_id):
         'Category': category,
     }
     return render(request, 'posts_by_category.html', context)
+
+def post_details(request, slug):
+    post = get_object_or_404(Blog, slug=slug, status=1)
+    return render(request, 'post.html', {'post': post})

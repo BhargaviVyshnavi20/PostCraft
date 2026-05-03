@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block title %}{{ post.title }} - Post Craft{% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <article class="blog-post">
+        <h1 class="display-4 fw-bold mb-3" style="color: #f8f9fa;">{{ post.title }}</h1>
+        <p class="blog-post-meta text-muted mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3 me-1" viewBox="0 0 16 16">
+            <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+            <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+          </svg>
+          {{ post.created_at|exact_naturaltime }} by <a href="#" class="text-info text-decoration-none">{{ post.author }}</a>
+          | <span class="badge" style="background-color: #fbbf24; color: #0d0d0d;">{{ post.category }}</span>
+        </p>
+
+        {% if post.featured_image %}
+        <div class="mb-5 text-center">
+          <img src="{{ post.featured_image.url }}" class="img-fluid rounded shadow-sm" alt="{{ post.title }}" style="max-height: 500px; object-fit: cover; width: 100%;">
+        </div>
+        {% endif %}
+
+        <div class="post-content" style="font-size: 1.1rem; line-height: 1.8; color: #d1d5db;">
+          {{ post.description|safe|linebreaks }}
+        </div>
+      </article>
+      
+      <div class="mt-5 mb-5 border-top pt-4">
+        <a href="/" class="btn btn-outline-warning text-decoration-none" style="border-radius: 0; letter-spacing: 1px; text-transform: uppercase;">
+          &larr; Back to Homepage
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
