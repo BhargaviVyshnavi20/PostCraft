@@ -85,36 +85,7 @@
       {% endfor %}
     </div>
     <div class="col-md-4">
-      <div class="position-sticky" style="top: 2rem">
-        <div class="p-4 mb-3 bg-body-tertiary rounded">
-          <h4 class="fst-italic section-title">About</h4>
-          <p class="mb-0 text-muted">
-            Customize this section to tell your visitors a little bit about
-            your publication, writers, content, or something else entirely.
-            Totally up to you.
-          </p>
-        </div>
-        <div>
-          <h4 class="fst-italic section-title">More featured articles</h4>
-          <ul class="list-unstyled">
-            {% for post in featured_blogs|slice:"3:" %}
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                href="{% url 'post_details' post.slug %}">
-                <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice"
-                  width="100%" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="100%" height="100%" fill="#777"></rect>
-                </svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0 text-white">{{ post.title }}</h6>
-                  <small class="text-body-secondary">{{ post.created_at|exact_naturaltime }}</small>
-                </div>
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
+      {% include 'sidebar.html' with show_about=True %}
     </div>
   </div>
 </main>

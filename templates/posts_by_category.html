@@ -29,15 +29,15 @@
 
 {% block content %}
 <main class="container mt-5">
-  <h3 class="text-uppercase section-title mb-4" style="letter-spacing: 2px;">Category- {{Category.category_name}}</h3>
-  <div class="row mb-2">
+  <h3 class="text-uppercase section-title mb-4" style="letter-spacing: 2px;">Category - {{Category.category_name}}</h3>
+  <div class="row">
     {% for blog in posts %}
     <div class="col-md-6 mb-4">
-      <div class="card border-0">
+      <div class="card border-0 bg-body-tertiary shadow-sm h-100">
         <div class="card-body">
-          <a href="{% url 'post_details' blog.slug %}" class="text-decoration-none"><h3 class="post-title">{{ blog.title }}</h3></a>
-          <small class="mb-1 text-muted">{{ blog.created_at|exact_naturaltime }} | By {{ blog.author }}</small>
-          <p class="card-text">{{ blog.description|truncatewords:30 }}</p>
+          <a href="{% url 'post_details' blog.slug %}" class="text-decoration-none"><h3 class="post-title h4">{{ blog.title }}</h3></a>
+          <small class="mb-2 d-block text-muted">{{ blog.created_at|exact_naturaltime }} | By {{ blog.author }}</small>
+          <p class="card-text text-muted">{{ blog.description|truncatewords:30 }}</p>
         </div>
       </div>
     </div>

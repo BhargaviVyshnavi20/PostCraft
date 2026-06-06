@@ -1,5 +1,9 @@
-from .models import Category
+from .models import Category, About
 
 def get_categories(request):
     categories = Category.objects.all()
-    return {'categories': categories}
+    about = About.objects.first()
+    return {
+        'categories': categories,
+        'about': about,
+    }

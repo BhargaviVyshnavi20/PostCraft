@@ -1,0 +1,74 @@
+{% load custom_filters %}
+
+<div class="position-sticky" style="top: 2rem">
+  <!-- About Widget -->
+  {% if show_about %}
+  <div class="p-4 mb-4 bg-body-tertiary rounded shadow-sm border border-secondary-subtle">
+    <h4 class="fst-italic mb-2" style="font-family: 'Playfair Display', Georgia, serif;">{{ about.title|default:"About" }}</h4>
+    <p class="mb-0 text-muted" style="font-size: 0.95rem; line-height: 1.6;">
+      {{ about.description|default:"Welcome to Post Craft, a premier platform sharing thoughts, stories, and ideas across Sports, Politics, Technology, and more."|linebreaksbr }}
+    </p>
+  </div>
+  {% endif %}
+
+  <!-- Categories Widget -->
+  {% if not hide_categories %}
+  <div class="p-4 mb-4 bg-body-tertiary rounded shadow-sm border border-secondary-subtle">
+    <h4 class="fst-italic mb-3" style="font-family: 'Playfair Display', Georgia, serif;">Categories</h4>
+    <ul class="list-unstyled mb-0">
+      {% for category in categories %}
+      <li class="mb-2">
+        <a href="{% url 'post_by_category' category.id %}" class="text-body-emphasis text-decoration-none nav-link d-inline-block py-1">
+          {{ category.category_name }}
+        </a>
+      </li>
+      {% empty %}
+      <li class="text-muted small">No categories found.</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <!-- Follow Us Widget -->
+  {% if not hide_social %}
+  <div class="p-4 mb-4 bg-body-tertiary rounded shadow-sm border border-secondary-subtle">
+    <h4 class="fst-italic mb-3" style="font-family: 'Playfair Display', Georgia, serif;">Follow Us</h4>
+    <ul class="list-unstyled mb-0">
+      <li class="mb-2">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-body-emphasis text-decoration-none nav-link d-inline-block py-1">
+          GitHub
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-body-emphasis text-decoration-none nav-link d-inline-block py-1">
+          LinkedIn
+        </a>
+      </li>
+    </ul>
+  </div>
+  {% endif %}
+
+  <!-- More Featured Articles Widget (Conditional) -->
+  {% if featured_blogs and featured_blogs|length > 3 %}
+  <div class="p-4 mb-4 bg-body-tertiary rounded shadow-sm border border-secondary-subtle">
+    <h4 class="fst-italic mb-3" style="font-family: 'Playfair Display', Georgia, serif;">More featured articles</h4>
+    <ul class="list-unstyled mb-0">
+      {% for post in featured_blogs|slice:"3:" %}
+      <li>
+        <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+          href="{% url 'post_details' post.slug %}">
+          <svg aria-hidden="true" class="bd-placeholder-img flex-shrink-0" height="70" preserveAspectRatio="xMidYMid slice"
+            width="80" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="#1a1a1a"></rect>
+          </svg>
+          <div>
+            <h6 class="mb-0 text-white" style="font-size: 0.95rem;">{{ post.title }}</h6>
+            <small class="text-body-secondary">{{ post.created_at|exact_naturaltime }}</small>
+          </div>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>

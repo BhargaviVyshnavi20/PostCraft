@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block title %}Search Results - Post Craft{% endblock %}
+
+{% block extra_css %}
+<style>
+  .section-title {
+    color: #fbbf24 !important;
+    font-weight: 600;
+  }
+
+  .post-title {
+    color: #f8f9fa !important;
+    transition: color 0.2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .post-title:hover {
+    color: #a8b2d1 !important;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+  <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="text-uppercase section-title mb-4" style="letter-spacing: 2px;">
+        {% if keyword %}
+          Search Results for "{{ keyword }}"
+        {% else %}
+          Search Results
+        {% endif %}
+      </h3>
+      <div class="row">
+        {% for blog in posts %}
+        <div class="col-md-6 mb-4">
+          <div class="card border-0 bg-body-tertiary shadow-sm h-100">
+            <div class="card-body">
+              <a href="{% url 'post_details' blog.slug %}" class="text-decoration-none">
+                <h3 class="post-title h4">{{ blog.title }}</h3>
+              </a>
+              <small class="mb-2 d-block text-muted">{{ blog.created_at|exact_naturaltime }} | By {{ blog.author }}</small>
+              <p class="card-text text-muted">{{ blog.description|truncatewords:20 }}</p>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+          <p class="text-white">No articles matched your search query. Try another term!</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-4">
+      {% include 'sidebar.html' %}
+    </div>
+  </div>
+</main>
+{% endblock %}
