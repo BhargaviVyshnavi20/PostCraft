@@ -32,8 +32,16 @@
             </div>
           </form>
           <div class="d-flex align-items-center gap-2">
-            <a class="btn btn-sm btn-outline-primary" href="#">Sign in</a>
-            <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+            {% if user.is_authenticated %}
+              <span class="text-white small me-2">Welcome, <strong>{{ user.username }}</strong>!</span>
+              <form action="{% url 'logout' %}" method="POST" class="d-inline m-0">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-secondary">Logout</button>
+              </form>
+            {% else %}
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'login' %}">Sign in</a>
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Sign up</a>
+            {% endif %}
           </div>
         </div>
       </div>

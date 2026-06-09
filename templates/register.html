@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign Up - Post Craft{% endblock %}
+
+{% block extra_css %}
+<style>
+  .register-card {
+    background-color: #111111 !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(245, 197, 24, 0.05) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .register-card:hover {
+    box-shadow: 0 15px 40px rgba(245, 197, 24, 0.1) !important;
+    border-color: rgba(245, 197, 24, 0.3) !important;
+  }
+  .register-title {
+    color: #fbbf24 !important;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+  }
+  .form-control:focus {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #fbbf24 !important;
+    box-shadow: 0 0 10px rgba(245, 197, 24, 0.25) !important;
+  }
+  /* Style lists in help text (like password requirements) */
+  .form-text ul {
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+    margin-top: 0.25rem;
+  }
+  .form-text li {
+    font-size: 0.75rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card register-card p-4 p-md-5">
+        <h2 class="register-title text-center mb-4">Create Account</h2>
+        <p class="text-center text-muted mb-4 small">Join Post Craft and share your thoughts with the world.</p>
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger border-danger-subtle bg-danger-subtle text-danger-emphasis py-2 px-3 mb-4 small rounded" role="alert">
+          {% for error in form.non_field_errors %}
+          <p class="mb-0">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'register' %}" novalidate>
+          {% csrf_token %}
+          
+          {% for field in form %}
+          <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label text-light small fw-semibold">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+            <div class="form-text text-muted">
+              {{ field.help_text|safe }}
+            </div>
+            {% endif %}
+            {% if field.errors %}
+            {% for error in field.errors %}
+            <div class="text-danger small mt-1" style="font-size: 0.8rem;">
+              {{ error }}
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          {% endfor %}
+
+          <button class="btn btn-outline-primary w-100 py-2.5 mt-4 btn-lg" type="submit" style="letter-spacing: 1px; text-transform: uppercase;">
+            Sign Up
+          </button>
+        </form>
+
+        <div class="text-center mt-4 pt-3 border-top border-secondary-subtle">
+          <p class="text-muted mb-0 small">Already have an account? <a href="#" class="text-primary fw-bold text-decoration-none">Sign In</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
