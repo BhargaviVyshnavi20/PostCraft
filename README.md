@@ -131,6 +131,4 @@ We are actively developing Post Craft to evolve into a full-fledged content mana
 ### 3.Reader Engagement & Comments
 - **Discussions System**: Threaded comments under blog posts for user interaction.
 
-### 4. Analytics & SEO Controls
-- **Post Views & Metrics**: A clean dashboard charts section showing page views, read times, and traffic sources for authors.
----
+
